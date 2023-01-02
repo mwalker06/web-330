@@ -58,9 +58,7 @@
 
 /** Required styles listed for Assignment 1 */
 #container {
-    margin-top: 50px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 50px 100px 0px 100px;
 }
 
  #icon-mode:hover {
