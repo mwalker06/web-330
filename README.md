@@ -1,4 +1,4 @@
-# WEB 231 Enterprise JavaScript I
+# WEB 330 Enterprise JavaScript II
 ## Contributors
 * Professor Richard Krasso
 * Megan Walker
