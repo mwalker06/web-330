@@ -4,7 +4,7 @@
      Author: Megan Walker
      Date: 01/01/2023
      Description: index html for web 330 github pages landing page
-     References: WEB 330 GitHub; WEB 330 Assign_1; https://www.w3schools.com/
+     References: WEB 330 GitHub, WEB 330 Assign_1, https://www.w3schools.com/
 --> 
 <head>
     <title>WEB 330 - Enterprise JavaScript II</title>
@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <script type="application/javascript" src="theme.js"></script>
+    <script src="theme.js"></script>
     
 </head>
 <body class="light-theme">
@@ -60,27 +60,20 @@
         </ul>
     </div>
     <script>
-        /**
-            Copied the following script from WEB 300 GitHub as per instructions in the Assign_1 Document.
-        */
-        /**
-         * Set the default theme to light if one has not been set in the browsers localStorage
-         */
+        /** Copied the following script from WEB 300 GitHub as per instructions in the Assign_1 Document. */
+
+        /** Set the default theme to light if one has not been set in the browsers localStorage */
+
         setDefaultTheme();
 
-        /**
-         * Function to switch the users selected website theme
-         * @param x (this instance)
-         */
+        /** Function to switch the users selected website theme @param x (this instance) */
         function toggleMode(x)
         {
             let colorTheme = document.body.classList; // get the body's CSS class
             let iconMode = x.classList; // get the current classes assigned to the triggered button
 
-            /**
-             * If the current body class is set to the light-theme, update the user's preference to the dark-theme in the browsers
-             * local storage.
-             */
+            /** If the current body class is set to the light-theme, update the user's preference to the dark-theme in the browsers local storage. */
+
             if (colorTheme.value === "light-theme")
             {
                 localStorage.clear();
@@ -88,10 +81,8 @@
                 localStorage.setItem("iconMode", "fa-toggle-on");
                 localStorage.setItem("iconText", "Dark Mode");
             }
-            /**
-             * If the current body class is set to the dark-theme, update the user's preference to the light-theme in the browsers
-             * local storage.
-             */
+            /** If the current body class is set to the dark-theme, update the user's preference to the light-theme in the browsers local storage */
+
             else
             {
                 localStorage.clear();
@@ -100,18 +91,15 @@
                 localStorage.setItem("iconText", "Light Mode");
             }
 
-            /**
-             * Apply the updated selection to the HTML page elements
-             */
+            /** Apply the updated selection to the HTML page elements */
+
             colorTheme.value = localStorage.getItem("mode");
             iconMode.value = `fa ${localStorage.getItem("iconMode")} pull-right`;
             document.getElementById("icon-text").innerHTML = localStorage.getItem("iconText");
         }
 
-        /**
-         * Function to clear the browsers localStorage and set the default theme to light-theme.
-         * This function is for demonstration purposes only and does not need to be included in any of your solutions.
-         */
+        /** Function to clear the browsers localStorage and set the default theme to light-theme. This function is for demonstration purposes only and does not need to be included in any of your solutions. */
+
         function clearLocalStorage() {
             localStorage.clear();
             document.body.classList.value = "light-theme";
