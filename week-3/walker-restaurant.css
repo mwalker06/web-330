@@ -1,0 +1,18 @@
+/**
+Title: walker-restaurant.css
+Author: Megan Walker
+Date: 01/20/23
+Description: styling specific to restaurant.html
+*/
+
+/* Create the grid */
+#grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+/* Adjusts spacing for cards */
+.card {
+  margin: 15px;
+}
