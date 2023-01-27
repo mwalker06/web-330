@@ -1,0 +1,14 @@
+/**
+Title: walker-calorie.css
+Author: Megan Walker
+Date: 01/27/23
+Description: styling specific to calorie.html
+*/
+
+/* Style the results */
+#foodList {
+  float: right;
+  color: #DF546A;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
