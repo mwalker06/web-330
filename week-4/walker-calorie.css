@@ -12,3 +12,7 @@ Description: styling specific to calorie.html
   font-size: 12px;
   letter-spacing: 2px;
 }
+
+#txtFoodItem {
+  width: 65%;
+}

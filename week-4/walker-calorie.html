@@ -34,51 +34,54 @@
     <div id="container">
         <div class="card">
             <div class="card-title">Calorie Search Form</div>
-            <div class="form">
-                <div class="form-field">
-                    <label for="txtPhrase">Enter a food item:</label>
-                    <input type="text" id="txtFoodItem" name="txtFoodItem" class="input">
-                </div>
-                <span id="foodList"></span>
-                <div class="form-field">
-                    <button class="btn btn-primary full-width" id="btnSearch">
-                        Search
-                    </button>
+            <div class="card-content">
+                <div class="form">
+                    <div class="form-field">
+                        <label for="txtPhrase">Enter a food item:</label>
+                        <input type="text" id="txtFoodItem" name="txtFoodItem" class="input"><br>
+                        <span id="foodList"></span>
+                    </div>
+                    <div class="form-field">
+                        <button class="btn btn-primary full-width" id="btnSearch">
+                            Search
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- return home section -->
-        <a class="return-home" href="../index.html">Return</a>
 
-        <!-- Order Summary section -->
+        </div><br>
+        <!-- return home section -->
+        <a class="return-home" href="../index.html">Return</a><br><br>
+
+        <!-- calorie results table section -->
         <div class="card">
             <div class="card-title">Search Results</div>
             <div class="card-content searchResults-text" id="searchResults">
-            </div>
+            </div><br>
         </div>
     </div>
 
 
     <script type="module">
         // Import from calorie-converter.js which imports from other JS file
-        
+        import { CalorieConverter } from "./calorie-converter.js";
 
         // create a variable named txtFoodItemEl and assign it the txtFoodItem input field
         let txtFoodItemEl = document.getElementById("txtFoodItem");
 
-        // Register an onclick event for the btnSearch field using the document.getElementById function
-        document.getElementById("btnSearch").addEventListener("click", function () {
-            let txtFoodItem = txtFoodItemEl.value;
-            let foods = CalorieConverter.find(txtFoodItem.toLowerCase());
-            let tableData = "<table><tbody>";
-            for (let food of foods) {
-                tableData += "<tr><td>" + food.name + "</td><td>" + food.calories + "</td></tr>";
-            }
-            tableData += "</tbody></table>";
-            document.getElementById("searchResults").innerHTML = tableData;
-        });
+        let foods = [];
 
-        // register an event listener for keyup
+        // Register an onclick event for the btnSearch field using the document.getElementById function clears the search field if the input is valid
+        document.getElementById("btnSearch").onclick = () => {
+            foods.push(CalorieConverter.find(txtFoodItemEl.value.toLowerCase()));
+            console.log(foods);
+            let tableRows = foods.map(food => `<tr><td>${food[0].name}</td><td>${food[0].calories}</td></tr>`).join("");
+            let tableData = `<table class="table"><thead><tr><th>Name</th><th>Calories</th></tr></thead><tbody>${tableRows}</tbody></table>`;
+            searchResults.innerHTML = tableData;
+            txtFoodItemEl.value = "";
+        };
+
+        // register an event listener for keyup Which allows the user to select enter to search
         txtFoodItemEl.addEventListener("keyup", function (event) {
             if (event.keyCode === 13) {
                 document.getElementById("btnSearch").click();
@@ -89,11 +92,12 @@
         let foodList = CalorieConverter.data;
 
         // create a variable named foodListData and build an HTML <i> string for the list of available food items
-        let foodListData = "<i>";
+        let foodListData = "<i>(Ex: ";
         for (let food of foodList) {
-            foodListData += food.name + "<br>";
+            foodListData += food.name + ", ";
         }
-        foodListData += "</i>";
+        foodListData = foodListData.slice(0, -2);
+        foodListData += ")";
         document.getElementById("foodList").innerHTML = foodListData;
     </script>
     <!-- moved toggle script to theme.js so i don't need to keep copying code, moved script down here where it belongs.-->
