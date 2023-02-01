@@ -6,17 +6,16 @@
  * References: WEB 330 GitHub, & WEB 330 Assign_5
  */
 
-// class is exported for use as a module
 // create a web component inheriting from the HTMLElement class
 class CartComponent extends HTMLElement {
   constructor() {
-    super();
+      super();
   }
 
   // connect the component to the DOM when called
   connectedCallback() {
-    // the hteml to display when the tags are used
-    this.innerHTML = `<i id="cartIcon" class="fa fa-shopping-cart"></i> 
+      // the hteml to display when the tags are used
+      this.innerHTML = `<i id="cartIcon" class="fa fa-shopping-cart"></i> 
           (<span id="cart-count"></span>)`;
   }
 }
