@@ -1,0 +1,18 @@
+/**
+Title: walker-bobs-auto-repair.css
+Author: Megan Walker
+Date: 02/01/23
+Description: styling specific to bobs-auto-repair.html
+*/
+
+/* Style the results */
+#foodList {
+  float: right;
+  color: #DF546A;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+#txtFoodItem {
+  width: 65%;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Title: bobs-auto-repair.html
+     Author: Megan Walker
+     Date: 02/01/2023
+     Description: bobs-auto-repair.html for Week 5 Assignment 5.2
+     References: WEB 330 GitHub, WEB 330 Assign_5, https://www.w3schools.com/
+-->
+
+<head>
+    <title>WEB 330 - Enterprise JavaScript II</title>
+
+    <link rel="stylesheet" href="../theme.css" type="text/css">
+    <link rel="stylesheet" href="../site.css" type="text/css">
+    <link rel="stylesheet" href="../week-5/walker-bobs-auto-repair.css" type="text/css">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body class="light-theme">
+
+
+    <!-- Toggle for light and dark theme-->
+    <i onclick="toggleMode(this)" id="icon-mode" class="fa fa-toggle-off pull-right" style="font-size: 28px;">
+        <span id="icon-text"></span></i><br>
+
+    <!-- Title of page-->
+    <h1 class="app-header">Welcome to the Calorie App!</h1>
+
+    <!-- Calorie search form section -->
+    <div id="container">
+        <div class="card">
+            <div class="card-title">Calorie Search Form</div>
+            <div class="card-content">
+                <div class="form">
+                    <div class="form-field">
+                        <label for="txtPhrase">Enter a food item:</label>
+                        <input type="text" id="txtFoodItem" name="txtFoodItem" class="input"><br>
+                        <span id="foodList"></span>
+                    </div>
+                    <div class="form-field">
+                        <button class="btn btn-primary full-width" id="btnSearch">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div><br>
+        <!-- return home section -->
+        <a class="return-home" href="../index.html">Return</a><br><br>
+
+        <!-- calorie results table section -->
+        <div class="card">
+            <div class="card-title">Search Results</div>
+            <div class="card-content searchResults-text" id="searchResults">
+            </div><br>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // Import from calorie-converter.js which imports from other JS file
+        import { CalorieConverter } from "./calorie-converter.js";
+
+        // create a variable named txtFoodItemEl and assign it the txtFoodItem input field
+        let txtFoodItemEl = document.getElementById("txtFoodItem");
+
+        let foods = [];
+
+        // Register an onclick event for the btnSearch field using the document.getElementById function clears the search field if the input is valid
+        document.getElementById("btnSearch").onclick = () => {
+            foods.push(CalorieConverter.find(txtFoodItemEl.value.toLowerCase()));
+            console.log(foods);
+            let tableRows = foods.map(food => `<tr><td>${food[0].name}</td><td>${food[0].calories}</td></tr>`).join("");
+            let tableData = `<table class="table"><thead><tr><th>Name</th><th>Calories</th></tr></thead><tbody>${tableRows}</tbody></table>`;
+            searchResults.innerHTML = tableData;
+            txtFoodItemEl.value = "";
+        };
+
+        // register an event listener for keyup Which allows the user to select enter to search
+        txtFoodItemEl.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                document.getElementById("btnSearch").click();
+            }
+        });
+
+        // create a variable named foodList and call the static data field off of the CalorieConverter class
+        let foodList = CalorieConverter.data;
+
+        // create a variable named foodListData and build an HTML <i> string for the list of available food items
+        let foodListData = "<i>(Ex: ";
+        for (let food of foodList) {
+            foodListData += food.name + ", ";
+        }
+        foodListData = foodListData.slice(0, -2);
+        foodListData += ")";
+        document.getElementById("foodList").innerHTML = foodListData;
+    </script>
+    <!-- moved toggle script to theme.js so i don't need to keep copying code, moved script down here where it belongs.-->
+    <script src="../theme.js"></script>
+</body>
+
+</html>
