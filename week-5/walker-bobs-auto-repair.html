@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <script src="cart-component.js"></script>
 </head>
 
 <body class="light-theme">
@@ -28,77 +29,109 @@
         <span id="icon-text"></span></i><br>
 
     <!-- Title of page-->
-    <h1 class="app-header">Welcome to the Calorie App!</h1>
+    <h1 class="app-header">Welcome to Bob's Automotive Repair Shop!</h1>
 
-    <!-- Calorie search form section -->
+    <!-- Product listing section -->
     <div id="container">
         <div class="card">
-            <div class="card-title">Calorie Search Form</div>
+            <div class="card-title">Product Listing</div>
+            <cart-component></cart-component>
             <div class="card-content">
                 <div class="form">
                     <div class="form-field">
-                        <label for="txtPhrase">Enter a food item:</label>
-                        <input type="text" id="txtFoodItem" name="txtFoodItem" class="input"><br>
-                        <span id="foodList"></span>
+                        <label for="txtPhrase">Choose a product:</label>
+                        <select id="productList" name="productList" class="drop-down-menu">
+                            <option value="select">--Select--</option>
+                            <option value="19.99">Oil Change</option>
+                            <option value="18.44">Filter Replacement</option>
+                            <option value="9.99">Wiper Fluid Refill</option>
+                        </select>
+                        <i id="cart-message">To view your shopping cart click on the cart icon</i><br>
                     </div>
                     <div class="form-field">
-                        <button class="btn btn-primary full-width" id="btnSearch">
-                            Search
+                        <button class="btn btn-primary full-width" id="btnAddProduct">
+                            Add to Cart
                         </button>
                     </div>
                 </div>
             </div>
-
         </div><br>
         <!-- return home section -->
-        <a class="return-home" href="../index.html">Return</a><br><br>
+        <a class="return-home" href="../index.html">Return</a><br><br><br>
 
         <!-- calorie results table section -->
         <div class="card">
-            <div class="card-title">Search Results</div>
-            <div class="card-content searchResults-text" id="searchResults">
+            <div class="card-title">Shopping Cart</div>
+            <div class="card-content" id="assign-results">
             </div><br>
         </div>
     </div>
 
 
     <script type="module">
-        // Import from calorie-converter.js which imports from other JS file
-        import { CalorieConverter } from "./calorie-converter.js";
+        // Import modules
+        import { Product } from "./product.js";
+        import { ShoppingCart } from "./shopping-cart.js";
 
-        // create a variable named txtFoodItemEl and assign it the txtFoodItem input field
-        let txtFoodItemEl = document.getElementById("txtFoodItem");
+        // Create a new instance of the ShoppingCart class
+        const shoppingCart = new ShoppingCart();
 
-        let foods = [];
+        // Update the cart item count on the shopping cart icon
+        function setCartCount() {
+            const cartCount = document.getElementById("cart-count");
+            cartCount.innerHTML = shoppingCart.count();
+        }
 
-        // Register an onclick event for the btnSearch field using the document.getElementById function clears the search field if the input is valid
-        document.getElementById("btnSearch").onclick = () => {
-            foods.push(CalorieConverter.find(txtFoodItemEl.value.toLowerCase()));
-            console.log(foods);
-            let tableRows = foods.map(food => `<tr><td>${food[0].name}</td><td>${food[0].calories}</td></tr>`).join("");
-            let tableData = `<table class="table"><thead><tr><th>Name</th><th>Calories</th></tr></thead><tbody>${tableRows}</tbody></table>`;
-            searchResults.innerHTML = tableData;
-            txtFoodItemEl.value = "";
+        setCartCount();
+
+        // Add product to the shopping cart when the "Add Product" button is clicked
+        document.getElementById("btnAddProduct").onclick = () => {
+            const productList = document.getElementById("productList");
+            const product = productList.options[productList.selectedIndex];
+
+            // Check if a product has been selected
+            if (Product.text !== "--Select--") {
+                // Add the selected product to the shopping cart
+                shoppingCart.add(new Product(product.text, product.value));
+                setCartCount();
+                alert(`${product.text} was added to your shopping cart!`);
+                productList.value = "select";
+            }
         };
 
-        // register an event listener for keyup Which allows the user to select enter to search
-        txtFoodItemEl.addEventListener("keyup", function (event) {
-            if (event.keyCode === 13) {
-                document.getElementById("btnSearch").click();
+        // Display the contents of the shopping cart when the cart icon is clicked
+        document.getElementById("cartIcon").onclick = () => {
+            const cartProducts = shoppingCart.listProducts();
+            const cartResults = document.getElementById("assign-results");
+            let tableRows = "";
+
+            // Loop through the products in the cart and create table rows
+            for (let product of cartProducts) {
+                // add the values to table cells
+                tableRows += `
+              <tr>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.price}</td>
+              </tr>`;
             }
-        });
+            // Create the shopping cart table
+            const cartDisplayTable = `
+          <table class="table">
+            <thead id='shoppingCart'>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody id='shoppingCart'>${tableRows}</tbody>
+          </table>`;
 
-        // create a variable named foodList and call the static data field off of the CalorieConverter class
-        let foodList = CalorieConverter.data;
-
-        // create a variable named foodListData and build an HTML <i> string for the list of available food items
-        let foodListData = "<i>(Ex: ";
-        for (let food of foodList) {
-            foodListData += food.name + ", ";
+            // Update the HTML with the shopping cart table
+            cartResults.innerHTML = cartDisplayTable;
         }
-        foodListData = foodListData.slice(0, -2);
-        foodListData += ")";
-        document.getElementById("foodList").innerHTML = foodListData;
+
     </script>
     <!-- moved toggle script to theme.js so i don't need to keep copying code, moved script down here where it belongs.-->
     <script src="../theme.js"></script>

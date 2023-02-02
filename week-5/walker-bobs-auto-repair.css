@@ -5,14 +5,25 @@ Date: 02/01/23
 Description: styling specific to bobs-auto-repair.html
 */
 
-/* Style the results */
-#foodList {
+/* Style the cart message */
+#cart-message {
   float: right;
   color: #DF546A;
   font-size: 12px;
   letter-spacing: 2px;
 }
 
-#txtFoodItem {
-  width: 65%;
+/* Change to pointer on hover */
+i:hover {
+  cursor: pointer;
+}
+
+/* Styling for the custom cart component icon */
+cart-component {
+  color: var(--card-title-color);
+  font-size: 36px;
+  margin-left: 45%;
+}
+.card-content {
+width: 60%;
 }
