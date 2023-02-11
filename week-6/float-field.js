@@ -14,10 +14,11 @@ export class FloatField {
   }
 
   validate() {
-    return isNaN(parseFloat(this.field));
-  }
+    let value = parseFloat(this.field);
+    return !isNaN(value);
+  }  
 
   getMessage() {
-    return `${this.name} must be a float value. You entered ${this.field}`
+    return `${this.name} must be a float value. You entered ${this.field}`;
   }
 }

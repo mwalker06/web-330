@@ -14,11 +14,7 @@ export class RequiredField {
     }
 
     validate() {
-        if (parseFloat(this.field)) {
-            return false;
-        }
-
-        return true;
+        return Boolean(this.field);
     }
 
     getMessage() {

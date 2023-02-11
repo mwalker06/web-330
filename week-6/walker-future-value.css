@@ -8,7 +8,6 @@ Description: styling specific to future-value.html
 
 /* set the error text */
 .danger {
-    float: right;
     color: #DF546A;
     font-size: 12px;
     letter-spacing: 2px;
@@ -23,4 +22,9 @@ Description: styling specific to future-value.html
 /* center the lower error text */
 .dangerMessage {
     text-align: center;
+}
+#futureValue {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 400;
 }

@@ -14,18 +14,17 @@ export class FinanceCalculator {
     const months = years * this.MONTHS_IN_YEAR;
     const interestRate = 1 + rate / 100;
     const presentValue = monthlyPayment * months;
-    const futureValue = presentValue * (Math.pow(interestRate, months));
+    const futureValue = presentValue * Math.pow(interestRate, months);
 
-    return futureValue;
+    return futureValue.toFixed(2);
   }
 
   static convertToCurrency(field) {
-    const currencyFormatter = new Intl.NumberFormat("en-US", {
+    let currencyFormatter = new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD"
+      currency: "USD",
     });
 
     return currencyFormatter.format(field);
   }
-
 }

@@ -43,7 +43,7 @@ export class Validator {
   // check all validation objects
   validate() {
     for (let valid of this.validators) {
-      if (valid.validate()) {
+      if (!valid.validate()) {
         this.messages.push(valid.getMessage());
         return false;
       }
