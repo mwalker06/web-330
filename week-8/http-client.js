@@ -2,7 +2,7 @@
  * Title: http-client.js
  * Author: Megan Walker
  * Date: 02/25/23
- * Description: http-client for whatabook2.html
+ * Description: http-client for importing params for whatabook2.html
  * References: WEB 330 GitHub, & WEB 330 Assign_8
  */
 
